@@ -1,12 +1,3 @@
-# ============================================================
-# report/analyzer.py — Analysis Report Generator
-#
-# Produces:
-#   1. Cost breakdown table (estimated cost vs simulated time)
-#   2. Sensitivity analysis table (varying Card(Posts))
-#   3. matplotlib chart saved to report/cost_comparison.png
-# ============================================================
-
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from simulation.executor import run_comparison, sensitivity_analysis

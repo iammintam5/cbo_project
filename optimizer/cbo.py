@@ -14,15 +14,6 @@ def pick_plan(
     length_uid:  int   = LENGTH_UID,
     selectivity: float = SELECTIVITY,
 ) -> tuple[str, CostComponents, CostComponents]:
-    """
-    Core CBO decision function.
-
-    Returns
-    -------
-    chosen_name : str               name of the winning plan
-    winner      : CostComponents    cost object of winner
-    loser       : CostComponents    cost object of loser
-    """
     cost_a = plan_a.compute_cost(card_users, card_posts, length_post)
     cost_b = plan_b.compute_cost(card_users, card_posts, length_post,
                                   length_uid, selectivity)
@@ -39,21 +30,7 @@ def semi_join_breakeven_posts(
     length_uid:  int   = LENGTH_UID,
     selectivity: float = SELECTIVITY,
 ) -> float:
-    """
-    Derive the cardinality of Posts at which both plans cost the same.
 
-    Useful for the analysis report: below this threshold Plan A wins,
-    above it Plan B wins.
-
-    Math (simplified, dominant terms are C_tr × bytes):
-      Plan A cost ≈ C_tr × posts × len_post
-      Plan B cost ≈ C_tr × (users × len_uid + posts × sel × len_post)
-
-    Set equal and solve for posts:
-      posts × len_post = users × len_uid + posts × sel × len_post
-      posts × (1 - sel) × len_post = users × len_uid
-      posts = users × len_uid / ((1 - sel) × len_post)
-    """
     from config import C_TR, C_MSG
     numerator   = C_TR * card_users * length_uid + C_MSG  # extra msg for B
     denominator = C_TR * (1 - selectivity) * length_post

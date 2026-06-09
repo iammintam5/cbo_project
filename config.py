@@ -1,6 +1,3 @@
-
-
-# --- Dataset metadata (from assignment spec) ---
 CARD_USERS        = 10_000         
 CARD_POSTS        = 1_000_000       
 LENGTH_USER       = 100             

@@ -29,13 +29,7 @@ def compute_cost(
 
 
 def simulate_time(cost: CostComponents) -> float:
-    """
-    Estimate wall-clock execution time (seconds).
 
-    transfer_time = bytes / bandwidth  +  latency_per_msg × msgs
-    io_time       = ios  × disk_io_time
-    cpu_time      = inst × cpu_inst_time
-    """
     transfer_time = (cost.n_bytes / NETWORK_BANDWIDTH_BPS) + \
                     (cost.n_msgs  * NETWORK_LATENCY_S)
     io_time  = cost.n_ios  * DISK_IO_TIME_S
